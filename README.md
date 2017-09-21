@@ -21,6 +21,7 @@ wikirace: connects 2 wiki pages
 * Spencer Cheng
 * Julija Lee
 * John Coleman
+* Hunter Casbeer
 
 # License
 
