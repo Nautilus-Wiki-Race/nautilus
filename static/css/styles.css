@@ -23,13 +23,14 @@ body {
 a, a:visited, a:hover, a:active {
     color: #F21E24;
     text-decoration: none;
+
 }
 
 header {
     display: flex;
     flex-direction: row;
     padding: 30px;
-    border-bottom: solid 1px #CCC;
+    background-color: #F21E24;
 }
 
 container {
@@ -54,8 +55,7 @@ sidebar {
 footer {
     position: absolute;
     bottom: 0;
-    background-color: #FFFFFF;
-    height: 60px;
+    height: 120px;
     width: 100%;
     border-top: solid 1px #CCCCCC;
     text-align: center;
@@ -64,11 +64,6 @@ footer {
 
 .logo {
     flex-grow: 1;
-}
-
-.logo img {
-    width: 150px;
-    height: 150px;
 }
 
 .social {
@@ -98,8 +93,7 @@ footer {
 }
 
 #mc_embed_signup {
-    background: #fff;
     clear: left;
-    font: 14px Helvetica, Arial, sans-serif;
     width: 100%;
+    font-size: 16px;
 }
