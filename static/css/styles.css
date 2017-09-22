@@ -37,6 +37,7 @@ container {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    margin-bottom: 80px;
     padding: 30px;
 }
 
@@ -47,7 +48,7 @@ main {
 }
 
 sidebar {
-    min-width: 240px;
+    min-width: 260px;
     flex-direction: row;
     margin: 30px auto;
 }
@@ -67,7 +68,8 @@ footer {
 }
 
 .social {
-    width: 400px;
+    width: 200px;
+    flex-direction: column;
 }
 
 .form {
