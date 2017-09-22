@@ -4,7 +4,7 @@
     <!-- HEAD -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>NAUTILUS</title>
+    <title>TEAM NAUTILUS - Wikirace</title>
 
     <!-- FAVICON -->
     <link rel="shortcut icon" href="images/icon.png">
@@ -14,38 +14,74 @@
 
   </head>
   <body>
+    <!-- HEADER -->
     <header>
-      <div class="logo"><img src="../static/images/nautilus_images/Nautilus_circle_text_trans_background.png" alt="Team Nautilus"></div>
+      <div class="logo"><img src="../static/images/nautilus_images/Nautilus_white_banner_trans_bkgrnd500x88px.png" alt="Team Nautilus"></div>
       <div class="social center">
-
 	<!-- TWITTER -->
 	<div>
 	  <a href="https://twitter.com/nautilus_wiki" class="twitter-follow-button" data-show-count="false">Follow @nautilus_wiki</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 	</div>
-
 	<!-- FACEBOOK -->
 	<div>
-	  <div id="fb-root"></div>
-	  <script>(function(d, s, id) {
-	    var js, fjs = d.getElementsByTagName(s)[0];
-	    if (d.getElementById(id)) return;
-	    js = d.createElement(s); js.id = id;
-	    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
-	    fjs.parentNode.insertBefore(js, fjs);
-	    }(document, 'script', 'facebook-jssdk'));</script>
+	  <div class="fb-follow" data-href="https://www.facebook.com/Nautilus-Wikirace-297139974102037/" data-layout="button_count" data-size="small" data-show-faces="true"></div>
 	</div>
-
       </div>
     </header>
+
+    <!-- BODY -->
     <container>
       {% block content %}
       {% endblock %}
       <sidebar>
-	<a class="twitter-timeline" href="https://twitter.com/nautilus_wiki">Tweets by nautilus_wiki</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<a class="twitter-timeline" href="https://twitter.com/nautilus_wiki" data-tweet-limit="5">Tweets by nautilus_wiki</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
       </sidebar>
     </container>
+
+    <!-- FOOTER -->
     <footer class="center">
-      <a href="https://github.com/orgs/Nautilus-Wiki-Race/people">TEAM NAUTILUS</a> @ <a href="http://holbertonschool.com/">Holberton School</a>
+      <!-- Begin MailChimp Signup Form -->
+      <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+      <div id="mc_embed_signup">
+	<form action="//holberton.us16.list-manage.com/subscribe/post?u=1eb9539933e7dc58d75c258f6&amp;id=09dc28b09c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	  <div id="mc_embed_signup_scroll">
+	    <label for="mce-EMAIL">Subscribe to our mailing list: </label>
+	    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+	    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+	    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_1eb9539933e7dc58d75c258f6_09dc28b09c" tabindex="-1" value=""></div>
+	  </div>
+	</form>
+	<div class="center"><a href="https://github.com/orgs/Nautilus-Wiki-Race/people">TEAM NAUTILUS</a> @ <a href="http://holbertonschool.com/"> Holberton School</a></div>
+      </div>
+      <!--End mc_embed_signup-->
     </footer>
+
+<!-- FACEBOOK -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=11453597; 
+var sc_invisible=1; 
+var sc_security="336bf4e2"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11453597/0/336bf4e2/1/" alt="Web
+Analytics"></a></div></noscript>
+<!-- End of StatCounter Code -->
   </body>
 </html>

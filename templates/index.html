@@ -1,22 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
 <main>
-	    <div class="search">
-	      <h2>Wikirace</h2>
-	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempus at mauris nec sagittis. Aliquam erat volutpat. Donec in quam id erat varius pretium. Phasellus turpis odio, tincidunt eget efficitur vitae, tempus at magna.</p>
-	      <form action="/" method="POST">
-		<div class="form center">
-		  <div>
-		    <h3>START</h3>
-		    <input type="text" name="PAGE_ONE">
-		  </div>
-		  <div>
-		    <h3>END</h3>
-		    <input type="text" name="PAGE_TWO">
-		  </div>
-		</div>
-		<div class="center"><input class="button" type="submit" value="Submit"></div>
-	      </form>
-	    </div>
-	  </main>
+  <div class="search">
+    <h2>POINT A to POINT B</h2>
+    <p>Find the shortest distance between two Wikipedia pages. Submit two words or Wikipedia URLs.</p>
+    <form action="/" method="POST">
+      <div class="form center">
+	<div>
+	  <h3>START</h3>
+	  <input type="text" name="PAGE_ONE">
+	</div>
+	<div>
+	  <h3>END</h3>
+	  <input type="text" name="PAGE_TWO">
+	</div>
+      </div>
+      <div class="center"><input class="button" type="submit" value="Submit"></div>
+    </form>
+  </div>
+</main>
 {% endblock %}

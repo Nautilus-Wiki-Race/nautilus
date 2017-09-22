@@ -23,10 +23,14 @@ body {
 a, a:visited, a:hover, a:active {
     color: #F21E24;
     text-decoration: none;
+
 }
 
 header {
+    display: flex;
+    flex-direction: row;
     padding: 30px;
+    background-color: #F21E24;
 }
 
 container {
@@ -38,22 +42,58 @@ container {
 
 main {
     flex-grow: 1;
-    margin: 30px auto;
+    margin: 30px;
     font-size: 16px;
 }
 
 sidebar {
-    max-width: 400px;
+    min-width: 240px;
     flex-direction: row;
     margin: 30px auto;
 }
 
-div.search {
-
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 120px;
+    width: 100%;
+    border-top: solid 1px #CCCCCC;
+    text-align: center;
+    overflow: hidden;
 }
 
-footer {
-    height: 40px;
-    padding-top: 20px;
+.logo {
+    flex-grow: 1;
+}
+
+.social {
+    width: 400px;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     text-align: center;
+    width: 100%;
+}
+
+.form > div {
+    flex-grow: 1;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    margin: 20px;
+}
+
+#mc_embed_signup {
+    clear: left;
+    width: 100%;
+    font-size: 16px;
 }
