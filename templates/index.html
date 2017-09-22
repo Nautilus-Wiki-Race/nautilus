@@ -1,44 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<!-- HEAD -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>NAUTILUS</title>
-
-	<!-- FAVICON -->
-	<link rel="shortcut icon" href="images/icon.png">
-
-	<!-- CSS -->
-	<link rel="stylesheet" href="../static/css/styles.css">
-
-  </head>
-  <body>
-	<header>
-	  <div class="logo"><img src="../static/images/nautilus_images/Nautilus_circle_text_trans_background.png" alt="Team Nautilus"></div>
-	  <div class="social center">
-
-	    <!-- TWITTER -->
-	    <div>
-	    <a href="https://twitter.com/nautilus_wiki" class="twitter-follow-button" data-show-count="false">Follow @nautilus_wiki</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-	    </div>
-
-	    <!-- FACEBOOK -->
-	    <div>
-	    <div id="fb-root"></div>
-	    <script>(function(d, s, id) {
-	      var js, fjs = d.getElementsByTagName(s)[0];
-	      if (d.getElementById(id)) return;
-	      js = d.createElement(s); js.id = id;
-	      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
-	      fjs.parentNode.insertBefore(js, fjs);
-	      }(document, 'script', 'facebook-jssdk'));</script>
-	    </div>
-
-	  </div>
-	</header>
-	<container>
-	  <main>
+{% extends "layout.html" %}
+{% block content %}
+<main>
 	    <div class="search">
 	      <h2>Wikirace</h2>
 	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempus at mauris nec sagittis. Aliquam erat volutpat. Donec in quam id erat varius pretium. Phasellus turpis odio, tincidunt eget efficitur vitae, tempus at magna.</p>
@@ -57,12 +19,4 @@
 	      </form>
 	    </div>
 	  </main>
-	  <sidebar>
-	    <a class="twitter-timeline" href="https://twitter.com/nautilus_wiki">Tweets by nautilus_wiki</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-	  </sidebar>
-	</container>
-	<footer class="center">
-	  <a href="https://github.com/orgs/Nautilus-Wiki-Race/people">TEAM NAUTILUS</a> @ <a href="http://holbertonschool.com/">Holberton School</a>
-	</footer>
-  </body>
-</html>
+{% endblock %}
