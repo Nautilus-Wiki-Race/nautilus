@@ -64,6 +64,7 @@ server {
 	location /results/ {
 		 include proxy_params;
 		 proxy_pass http://0.0.0.0:5000/results/;
+	}
 	#
 	#location ~ \.php$ {
 	#	include snippets/fastcgi-php.conf;
