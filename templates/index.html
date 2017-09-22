@@ -15,7 +15,7 @@
   </head>
   <body>
 	<header>
-	  <div class="logo"><img src="" alt="Team Nautilus"></div>
+	  <div class="logo"><img src="../static/images/nautilus_images/Nautilus_circle_text_trans_background.png" alt="Team Nautilus"></div>
 	  <div class="social center">
 
 	    <!-- TWITTER -->
@@ -42,11 +42,18 @@
 	    <div class="search">
 	      <h2>Wikirace</h2>
 	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempus at mauris nec sagittis. Aliquam erat volutpat. Donec in quam id erat varius pretium. Phasellus turpis odio, tincidunt eget efficitur vitae, tempus at magna.</p>
-	      <form>
-		Start:<br>
-		<input type="text" name="PAGE_ONE">
-		End:<br>
-		<input type="text" name="PAGE_TWO">
+	      <form action="/" method="POST">
+		<div class="form center">
+		  <div>
+		    <h3>START</h3>
+		    <input type="text" name="PAGE_ONE">
+		  </div>
+		  <div>
+		    <h3>END</h3>
+		    <input type="text" name="PAGE_TWO">
+		  </div>
+		</div>
+		<div class="center"><input class="button" type="submit" value="Submit"></div>
 	      </form>
 	    </div>
 	  </main>
