@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 <main>
-  <p>hello world</p>
+  <h2>Results</h2>
+  <ol class="results">
   {% for obj in results_obj %}
-      <h3>{{ obj }}</h3>
+      <li>{{ obj }}</li>
   {% endfor %}
+  </ol>
+  <a href="http://nautilus.holberton.us/">Try another search!</a>
 </main>
 {% endblock %}
