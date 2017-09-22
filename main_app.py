@@ -50,7 +50,7 @@ def search_wiki(page1, page2):
                 break
     if ret_url:
         return([
-            "Starting word {}".format(page1),
+            page1,
             page2
         ])
     else:

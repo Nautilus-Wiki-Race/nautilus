@@ -1,11 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 <main>
+  {% if results_obj[0] == "error" %}
+  <h1>ERROR</h1>
+  {% for obj in results_obj %}
+      <li>{{ obj }}</li>
+  {% endfor %}
+  {% else %}
   <h1>Results</h1>
   <ol class="results">
   {% for obj in results_obj %}
       <li>{{ obj }}</li>
   {% endfor %}
+  {% endif %}
   </ol>
   <h3><a href="http://nautilus.holberton.us/">Try another search!</a></h3>
 </main>
