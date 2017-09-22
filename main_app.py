@@ -32,6 +32,13 @@ def results(results_object):
         return render_template('results.html', results_object=results_object)
 
 
+"""
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+"""
+
+
 if __name__ == '__main__':
     """
     MAIN APP
