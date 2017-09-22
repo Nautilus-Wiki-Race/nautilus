@@ -10,6 +10,7 @@ import sys
 
 if __name__ == "__main__":
     page1 = sys.argv[1]
+    page1 = page1.replace(' ', '_')
     page2 = sys.argv[2]
     wiki_url = "https://en.wikipedia.org/wiki/"
     url = "https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=500&format=json&titles=" + page1
