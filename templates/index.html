@@ -1,22 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 <main>
-  <div class="search">
-    <h2>From POINT A to POINT B</h2>
-    <p>Find the shortest distance between two Wikipedia pages. Submit two words or Wikipedia URLs.</p>
-    <form action="/" method="POST">
-      <div class="form center">
-	<div>
-	  <h3>START</h3>
-	  <input type="text" name="PAGE_ONE">
-	</div>
-	<div>
-	  <h3>END</h3>
-	  <input type="text" name="PAGE_TWO">
-	</div>
+  <h1>From POINT A to POINT B</h1>
+  <p>Find the shortest path between two Wikipedia pages by submitting two keywords. We'll calculate the shortest path via links followed from the Start keyword's Wikipedia page to the End keyword's Wikipedia page.</p>
+  <form action="/" method="POST">
+    <div class="form center">
+      <div>
+	<h3>START</h3>
+	<input type="text" name="PAGE_ONE">
       </div>
-      <div class="center"><input class="button" type="submit" value="Submit"></div>
-    </form>
-  </div>
+      <div>
+	<h3>END</h3>
+	<input type="text" name="PAGE_TWO">
+      </div>
+    </div>
+    <div class="center"><input class="button" type="submit" value="Submit"></div>
+  </form>
 </main>
 {% endblock %}
