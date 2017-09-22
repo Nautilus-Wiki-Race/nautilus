@@ -67,6 +67,10 @@ footer {
     flex-grow: 1;
 }
 
+.logo img {
+    max-width: 100%;
+}
+
 .social {
     margin: 0 auto;
     width: 200px;
