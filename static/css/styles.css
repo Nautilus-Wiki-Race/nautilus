@@ -1,0 +1,59 @@
+@charset "UTF-8";
+/* Wikirace Styles */
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: #484848;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+}
+
+a, a:visited, a:hover, a:active {
+    color: #F21E24;
+    text-decoration: none;
+}
+
+header {
+    padding: 30px;
+}
+
+container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+main {
+    flex-grow: 1;
+    margin: 30px auto;
+    font-size: 16px;
+}
+
+sidebar {
+    max-width: 400px;
+    flex-direction: row;
+    margin: 30px auto;
+}
+
+div.search {
+
+}
+
+footer {
+    height: 40px;
+    padding-top: 20px;
+    text-align: center;
+}
