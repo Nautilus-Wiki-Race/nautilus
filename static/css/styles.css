@@ -29,6 +29,7 @@ header {
     display: flex;
     flex-direction: row;
     padding: 30px;
+    border-bottom: solid 1px #CCC;
 }
 
 container {
@@ -65,7 +66,7 @@ footer {
     flex-grow: 1;
 }
 
-.logo img {
+.logo > img {
     width: 150px;
     height: 150px;
 }
