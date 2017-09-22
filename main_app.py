@@ -3,6 +3,7 @@
 wiki race flask app
 """
 from flask import Flask, render_template, request, jsonify, redirect, url_for
+import json
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -20,16 +21,21 @@ def index():
     if request.method == 'POST':
         page_one = request.form['PAGE_ONE']
         page_two = request.form['PAGE_TWO']
-        return redirect(url_for('results.html', results_object=results_object))
+        print(page_one)
+        print(page_two)
+        results_obj = [
+            page_one,
+            page_two
+        ]
+        return redirect(url_for('results', results_obj=json.dumps(results_obj)))
 
 
-@app.route('/results/<results_object>', methods=['GET'])
-def results(results_object):
+@app.route('/results/<results_obj>', methods=['GET', 'POST'])
+def results(results_obj):
     """
     renders template for main index
     """
-    if request.method == 'GET':
-        return render_template('results.html', results_object=results_object)
+    return render_template('results.html', results_obj=json.loads(results_obj))
 
 
 """
