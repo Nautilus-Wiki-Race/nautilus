@@ -28,14 +28,14 @@ a, a:visited, a:hover, a:active {
 
 header {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     padding: 30px;
     background-color: #F21E24;
 }
 
 container {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     align-items: flex-start;
     margin-bottom: 80px;
     padding: 30px;
@@ -68,13 +68,14 @@ footer {
 }
 
 .social {
+    margin: 0 auto;
     width: 200px;
     flex-direction: column;
 }
 
 .form {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     align-items: flex-start;
     text-align: center;
     width: 100%;
