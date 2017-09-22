@@ -12,12 +12,7 @@ host = '0.0.0.0'
 port = 5000
 
 
-def search_wiki(page1, page2):
-    """
-    basic search for pages
-    """
-    page1 = page1.replace(' ', '_')
-    wiki_url = "https://en.wikipedia.org/wiki/"
+def get_titles(wiki_url, page1):
     url = "https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=500&format=json&titles=" + page1
     r = requests.get(url, headers={'User-agent': 'holberton 0.1'})
     pages = r.json().get("query").get("pages")
@@ -25,17 +20,44 @@ def search_wiki(page1, page2):
         k = k
         v = v
     links = v.get("links")
+    if links is None:
+        return([])
     titles = []
-    if not links:
-        return(["error", "link not found"])
     for link in links:
         titles.append(link.get('title'))
-    if page2 in titles:
-        page_2 = page2.replace(' ', '_')
-        ret_url = wiki_url + page_2
-        return(["good job", "the link is on the same page"])
+    return (titles)
+
+
+def search_wiki(page1, page2):
+    """
+    basic search for pages
+    """
+    page1 = page1.replace(' ', '_')
+    wiki_url = "https://en.wikipedia.org/wiki/"
+    titles1 = []
+    titles1 = get_titles(wiki_url, page1)
+    ret_url = None
+    if page2 in titles1:
+        page2 = page2.replace(' ', '_')
+        ret_url = wiki_url + page2
     else:
-        return(["error", "link not found"])
+        titles2 = []
+        for title in titles1:
+            titles2 += get_titles(wiki_url, title)
+            if page2 in titles2:
+                page2 = page2.replace(' ', '_')
+                ret_url = wiki_url + page2
+                break
+    if ret_url:
+        return([
+            "Starting word {}".format(page1),
+            page2
+        ])
+    else:
+        return([
+            "error",
+            "link not found"
+        ])
 
 
 @app.route('/', methods=['GET', 'POST'])
