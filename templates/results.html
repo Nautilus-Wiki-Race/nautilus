@@ -2,5 +2,8 @@
 {% block content %}
 <main>
   <p>hello world</p>
+  {% for obj in results_obj %}
+      <h3>{{ obj }}</h3>
+  {% endfor %}
 </main>
 {% endblock %}
