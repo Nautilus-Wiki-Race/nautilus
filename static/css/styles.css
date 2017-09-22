@@ -66,6 +66,11 @@ footer {
     flex-grow: 1;
 }
 
+.logo img {
+    width: 150px;
+    height: 150px;
+}
+
 .social {
     width: 400px;
 }
