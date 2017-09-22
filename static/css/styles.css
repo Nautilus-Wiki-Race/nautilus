@@ -47,7 +47,8 @@ main {
 }
 
 sidebar {
-    min-width: 240px;
+    overflow: scroll;
+    min-width: 260px;
     flex-direction: row;
     margin: 30px auto;
 }
@@ -67,7 +68,8 @@ footer {
 }
 
 .social {
-    width: 400px;
+    width: 200px;
+    flex-direction: column;
 }
 
 .form {

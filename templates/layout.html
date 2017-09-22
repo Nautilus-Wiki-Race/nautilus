@@ -16,7 +16,7 @@
   <body>
     <!-- HEADER -->
     <header>
-      <div class="logo"><img src="../static/images/nautilus_images/Nautilus_white_banner_trans_bkgrnd500x88px.png" alt="Team Nautilus"></div>
+      <div class="logo"><a href="http://nautilus.holberton.us/"><img src="../static/images/nautilus_images/Nautilus_white_banner_trans_bkgrnd500x88px.png" border="0" alt="Team Nautilus"></a></div>
       <div class="social center">
 	<!-- TWITTER -->
 	<div>
@@ -24,7 +24,7 @@
 	</div>
 	<!-- FACEBOOK -->
 	<div>
-	  <div class="fb-follow" data-href="https://www.facebook.com/Nautilus-Wikirace-297139974102037/" data-layout="button_count" data-size="small" data-show-faces="true"></div>
+	  <div class="fb-like" data-href="https://www.facebook.com/Nautilus-Wikirace-297139974102037/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 	</div>
       </div>
     </header>
@@ -34,7 +34,7 @@
       {% block content %}
       {% endblock %}
       <sidebar>
-	<a class="twitter-timeline" href="https://twitter.com/nautilus_wiki" data-tweet-limit="5">Tweets by nautilus_wiki</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<a class="twitter-timeline" href="https://twitter.com/nautilus_wiki" data-tweet-limit="3">Tweets by nautilus_wiki</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
       </sidebar>
     </container>
 
@@ -64,7 +64,7 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
   fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <!-- Start of StatCounter Code -->
 <script type="text/javascript">
