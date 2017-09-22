@@ -26,6 +26,8 @@ def search_wiki(page1, page2):
         v = v
     links = v.get("links")
     titles = []
+    if not links:
+        return(["error", "link not found"])
     for link in links:
         titles.append(link.get('title'))
     if page2 in titles:
