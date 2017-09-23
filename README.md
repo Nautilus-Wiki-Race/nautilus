@@ -1,6 +1,6 @@
 # nautilus
 
-wikirace: connects 2 wiki pages
+wikirace: attempts to find shortest path of links between 2 wiki pages
 
 # Links
 
@@ -8,8 +8,7 @@ wikirace: connects 2 wiki pages
 * Twitter: https://twitter.com/nautilus_wiki
 * Facebook: https://www.facebook.com/Nautilus-Wikirace-297139974102037/
 * Project Development: https://trello.com/holbertonnautilus
-
-# Description
+* Press Release: http://nautilus.holberton.us/static/Nautilus_PR.pdf
 
 # Authors
 
