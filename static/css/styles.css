@@ -23,7 +23,6 @@ body {
 a, a:visited, a:hover, a:active {
     color: #F21E24;
     text-decoration: none;
-
 }
 
 header {
@@ -41,7 +40,7 @@ container {
     padding: 30px;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (max-width: 480px) {
     container {
 	flex-flow: row wrap;
     }
@@ -62,7 +61,7 @@ sidebar {
 footer {
     position: absolute;
     bottom: 0;
-    height: 120px;
+    min-height: 150px;
     width: 100%;
     border-top: solid 1px #CCCCCC;
     text-align: center;
