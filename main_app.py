@@ -13,8 +13,18 @@ port = 5000
 
 
 def get_titles(wiki_url, page1):
-    url = "https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=500&format=json&titles=" + page1
-    r = requests.get(url, headers={'User-agent': 'holberton 0.1'})
+    payload = {
+        'action': 'query',
+        'prop': 'links',
+        'pllimit': '500',
+        'format': 'json',
+        'titles': page1
+    }
+    headers = {
+        'User-agent': 'holberton 0.1'
+    }
+    url = "https://en.wikipedia.org/w/api.php"
+    r = requests.get(url, headers=headers, params=payload)
     pages = r.json().get("query").get("pages")
     for k, v in pages.items():
         k = k
@@ -39,19 +49,23 @@ def search_wiki(page1, page2):
     ret_url = None
     if page2 in titles1:
         page2 = page2.replace(' ', '_')
-        ret_url = wiki_url + page2
-    else:
-        titles2 = []
-        for title in titles1:
-            titles2 += get_titles(wiki_url, title)
-            if page2 in titles2:
-                page2 = page2.replace(' ', '_')
-                ret_url = wiki_url + page2
-                break
-    if ret_url:
         return([
-            page1,
-            page2
+            '{}{}'.format(wiki_url, page1),
+            '{}{}'.format(wiki_url, page2),
+        ])
+    titles2 = []
+    for title in titles1:
+        titles2 += get_titles(wiki_url, title)
+        if page2 in titles2:
+            step2 = title
+            page2 = page2.replace(' ', '_')
+            ret_url = 'found'
+            break
+    if ret_url == 'found':
+        return([
+            '{}{}'.format(wiki_url, page1),
+            '{}{}'.format(wiki_url, step2),
+            '{}{}'.format(wiki_url, page2)
         ])
     else:
         return([
@@ -71,7 +85,8 @@ def index():
         page_one = request.form['PAGE_ONE']
         page_two = request.form['PAGE_TWO']
         results_obj = search_wiki(page_one, page_two)
-        return redirect(url_for('results', results_obj=json.dumps(results_obj)))
+        return render_template('results.html', results_obj=results_obj)
+    # return redirect(url_for('results', results_obj=json.dumps(results_obj)))
 
 
 @app.route('/results/<results_obj>', methods=['GET', 'POST'])

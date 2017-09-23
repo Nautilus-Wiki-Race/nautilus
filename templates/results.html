@@ -2,18 +2,19 @@
 {% block content %}
 <main>
   {% if results_obj[0] == "error" %}
-  <h1>ERROR</h1>
-  {% for obj in results_obj %}
-      <li>{{ obj }}</li>
-  {% endfor %}
+    <h1>ERROR</h1>
+    <li><strong>We could not find your Wikipedia Page</strong></li>
+    <li><strong>Please ensure that you provide a proper Wikipedia Pages</strong></li>
   {% else %}
-  <h1>Results</h1>
-  <ol class="results">
-  {% for obj in results_obj %}
+    <h1>Results</h1>
+    <ol class="results">
+      <strong>Start:</strong>
+      {% for obj in results_obj %}
       <li>{{ obj }}</li>
-  {% endfor %}
+      {% endfor %}
+      <p><strong>Degrees of separation: {{ results_obj|length }}</strong></p>
+    </ol>
   {% endif %}
-  </ol>
-  <h3><a href="http://nautilus.holberton.us/">Try another search!</a></h3>
+  <h3><a href="{{ url_for('index') }}">Try another search!</a></h3>
 </main>
 {% endblock %}
