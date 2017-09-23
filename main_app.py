@@ -81,7 +81,6 @@ def search_wiki(page1, page2):
     if ret_url == 'found':
         return([
             '{}{}'.format(wiki_url, page1),
-            '{}{}'.format(wiki_url, 'UNABLE_TO_RENDER'),
             '{}{}'.format(wiki_url, step3),
             '{}{}'.format(wiki_url, page2)
         ])
