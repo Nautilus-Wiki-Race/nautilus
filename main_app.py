@@ -60,7 +60,14 @@ def search_wiki(page_start, page_end):
     queries[page_start] = {}
     page_start = page_start.replace(' ', '_')
     wiki_url = "https://en.wikipedia.org/wiki/"
-    titles = get_titles(wiki_url, page_start)
+    check_one = get_titles(wiki_url, page_start)
+    check_two = get_titles(wiki_url, page_end.replace(' ', '_'))
+    if len(check_one) == 0 or len(check_two) == 0:
+        return([
+            "error",
+            "link not found"
+        ])
+    titles = check_one
     titles = clean_links(titles)
     ret_url = None
     if page_end in titles:
@@ -76,7 +83,7 @@ def search_wiki(page_start, page_end):
         temp_titles = get_titles(wiki_url, title)
         temp_titles = clean_links(temp_titles)
         if page_end in temp_titles:
-            step2 = title
+            step2 = title.replace(' ', '_')
             page_end = page_end.replace(' ', '_')
             ret_url = 'found'
             break
@@ -86,6 +93,28 @@ def search_wiki(page_start, page_end):
         return([
             '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, step2),
+            '{}{}'.format(wiki_url, page_end)
+        ])
+    else:
+        for title in queries[page_start]:
+            for second_title in queries[page_start][title]:
+                # print('checking path: {} -> {}'.format(title, second_title))
+                temp_titles = get_titles(wiki_url, second_title)
+                temp_titles = clean_links(temp_titles)
+                if page_end in temp_titles:
+                    step2 = title.replace(' ', '_')
+                    step3 = second_title.replace(' ', '_')
+                    page_end = page_end.replace(' ', '_')
+                    ret_url = 'found'
+                    break
+                all_titles = all_titles.union(temp_titles)
+                queries[page_start][title][second_title] = (
+                    dict.fromkeys(temp_titles))
+    if ret_url == 'found':
+        return([
+            '{}{}'.format(wiki_url, page_start),
+            '{}{}'.format(wiki_url, step2),
+            '{}{}'.format(wiki_url, step3),
             '{}{}'.format(wiki_url, page_end)
         ])
     else:
