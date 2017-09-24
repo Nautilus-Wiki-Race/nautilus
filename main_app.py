@@ -14,6 +14,16 @@ all_titles = set()
 queries = dict()
 
 
+def reset():
+    """
+    resets
+    """
+    global all_titles
+    global queries
+    all_titles = set()
+    queries = dict()
+
+
 def get_titles(wiki_url, page_start):
     """
     makes get request to wiki API
@@ -63,6 +73,7 @@ def search_wiki(page_start, page_end):
     check_one = get_titles(wiki_url, page_start)
     check_two = get_titles(wiki_url, page_end.replace(' ', '_'))
     if len(check_one) == 0 or len(check_two) == 0:
+        reset()
         return([
             "error",
             "link not found"
@@ -72,6 +83,7 @@ def search_wiki(page_start, page_end):
     ret_url = None
     if page_end in titles:
         page_end = page_end.replace(' ', '_')
+        reset()
         return([
             '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, page_end),
@@ -90,6 +102,7 @@ def search_wiki(page_start, page_end):
         all_titles = all_titles.union(temp_titles)
         queries[page_start][title] = dict.fromkeys(temp_titles)
     if ret_url == 'found':
+        reset()
         return([
             '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, step2),
@@ -111,6 +124,7 @@ def search_wiki(page_start, page_end):
                 queries[page_start][title][second_title] = (
                     dict.fromkeys(temp_titles))
     if ret_url == 'found':
+        reset()
         return([
             '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, step2),
@@ -118,6 +132,7 @@ def search_wiki(page_start, page_end):
             '{}{}'.format(wiki_url, page_end)
         ])
     else:
+        reset()
         return([
             "error",
             "link not found"
