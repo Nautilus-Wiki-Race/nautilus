@@ -10,9 +10,11 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 host = '0.0.0.0'
 port = 5000
+all_titles = set()
+queries = dict()
 
 
-def get_titles(wiki_url, page1):
+def get_titles(wiki_url, page_start):
     """
     makes get request to wiki API
     """
@@ -21,7 +23,7 @@ def get_titles(wiki_url, page1):
         'prop': 'links',
         'pllimit': '500',
         'format': 'json',
-        'titles': page1
+        'titles': page_start
     }
     headers = {
         'User-agent': 'holberton 0.1'
@@ -40,50 +42,51 @@ def get_titles(wiki_url, page1):
     return (titles)
 
 
-def clean_links(all_titles, titles):
+def clean_links(titles):
     """
     cleans titles that should not be in new titles list
     """
+    global all_titles
     return (titles.difference(all_titles))
 
 
-def search_wiki(page1, page2):
+def search_wiki(page_start, page_end):
     """
     basic search for pages
     """
-    all_titles = {page1}
-    queries = {
-        page1: {}
-    }
-    page1 = page1.replace(' ', '_')
+    global all_titles
+    global queries
+    all_titles.add(page_start)
+    queries[page_start] = {}
+    page_start = page_start.replace(' ', '_')
     wiki_url = "https://en.wikipedia.org/wiki/"
-    titles = get_titles(wiki_url, page1)
-    titles = clean_links(all_titles, titles)
+    titles = get_titles(wiki_url, page_start)
+    titles = clean_links(titles)
     ret_url = None
-    if page2 in titles:
-        page2 = page2.replace(' ', '_')
+    if page_end in titles:
+        page_end = page_end.replace(' ', '_')
         return([
-            '{}{}'.format(wiki_url, page1),
-            '{}{}'.format(wiki_url, page2),
+            '{}{}'.format(wiki_url, page_start),
+            '{}{}'.format(wiki_url, page_end),
         ])
     else:
         all_titles = all_titles.union(titles)
-        queries[page1] = dict.fromkeys(titles)
-    for title in queries[page1]:
+        queries[page_start] = dict.fromkeys(titles)
+    for title in queries[page_start]:
         temp_titles = get_titles(wiki_url, title)
-        temp_titles = clean_links(all_titles, temp_titles)
-        if page2 in temp_titles:
+        temp_titles = clean_links(temp_titles)
+        if page_end in temp_titles:
             step2 = title
-            page2 = page2.replace(' ', '_')
+            page_end = page_end.replace(' ', '_')
             ret_url = 'found'
             break
         all_titles = all_titles.union(temp_titles)
-        queries[page1][title] = dict.fromkeys(temp_titles)
+        queries[page_start][title] = dict.fromkeys(temp_titles)
     if ret_url == 'found':
         return([
-            '{}{}'.format(wiki_url, page1),
+            '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, step2),
-            '{}{}'.format(wiki_url, page2)
+            '{}{}'.format(wiki_url, page_end)
         ])
     else:
         return([
