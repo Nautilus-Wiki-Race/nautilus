@@ -111,18 +111,21 @@ def search_wiki(page_start, page_end):
     else:
         for title in queries[page_start]:
             for second_title in queries[page_start][title]:
-                # print('checking path: {} -> {}'.format(title, second_title))
                 temp_titles = get_titles(wiki_url, second_title)
                 temp_titles = clean_links(temp_titles)
+                # print("{} -> {} -> {}"
+                # .format(page_start, title, second_title))
                 if page_end in temp_titles:
                     step2 = title.replace(' ', '_')
                     step3 = second_title.replace(' ', '_')
                     page_end = page_end.replace(' ', '_')
                     ret_url = 'found'
                     break
+                """
                 all_titles = all_titles.union(temp_titles)
                 queries[page_start][title][second_title] = (
                     dict.fromkeys(temp_titles))
+                """
     if ret_url == 'found':
         reset()
         return([
