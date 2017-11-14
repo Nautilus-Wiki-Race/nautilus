@@ -46,7 +46,7 @@ def reset():
     queries = dict()
 
 
-def get_titles(wiki_url, page_start):
+def get_titles(page_start):
     """
     makes get request to wiki API
     """
@@ -102,9 +102,8 @@ def search_wiki(page_start, page_end):
     all_titles.add(page_start)
     queries[page_start] = {}
     page_start = page_start.replace(' ', '_')
-    wiki_url = "https://en.wikipedia.org/wiki/"
-    check_one = get_titles(wiki_url, page_start)
-    page_end_links = get_titles(wiki_url, page_end.replace(' ', '_'))
+    check_one = get_titles(page_start)
+    page_end_links = get_titles(page_end.replace(' ', '_'))
     if len(check_one) == 0 or len(page_end_links) == 0:
         return(["error", ERRORS[0]])
     titles = check_one
@@ -115,7 +114,7 @@ def search_wiki(page_start, page_end):
     all_titles = all_titles.union(titles)
     queries[page_start] = dict.fromkeys(titles)
     for title in queries[page_start]:
-        temp_titles = get_titles(wiki_url, title)
+        temp_titles = get_titles(title)
         temp_titles = clean_links(temp_titles)
         if page_end in temp_titles:
             return make_return_object(
@@ -134,7 +133,7 @@ def search_wiki(page_start, page_end):
         queries[page_start][title] = dict.fromkeys(temp_titles)
     for title in queries[page_start]:
         for second_title in queries[page_start][title]:
-            temp_titles = get_titles(wiki_url, second_title)
+            temp_titles = get_titles(second_title)
             temp_titles = clean_links(temp_titles)
             if page_end in temp_titles:
                 return make_return_object(
