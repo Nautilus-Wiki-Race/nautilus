@@ -41,7 +41,7 @@ container {
     flex-direction: row;
     align-items: flex-start;
     margin-bottom: 80px;
-    padding: 30px;
+    padding: 5px;
 }
 
 @media screen and (max-width: 480px) {
