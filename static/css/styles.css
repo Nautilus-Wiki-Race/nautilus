@@ -28,7 +28,7 @@ a, a:visited, a:hover, a:active {
 header {
     display: flex;
     flex-flow: row wrap;
-    padding: 30px;
+    padding: 5px;
     background-color: #F21E24;
 }
 
@@ -61,7 +61,7 @@ sidebar {
 footer {
     position: absolute;
     bottom: 0;
-    min-height: 150px;
+    min-height: 100px;
     width: 100%;
     border-top: solid 1px #CCCCCC;
     text-align: center;
