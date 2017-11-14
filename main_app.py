@@ -82,6 +82,17 @@ def clean_links(titles):
     return (titles.difference(all_titles))
 
 
+def make_return_object(*args):
+    """
+    makes a return object based on the input arguments
+    """
+    results_obj = []
+    wiki_url = "https://en.wikipedia.org/wiki/"
+    for wikilink in args:
+        results_obj.append('{}{}'.format(wiki_url, wikilink))
+    return results_obj
+
+
 def search_wiki(page_start, page_end):
     """
     basic search for pages
@@ -93,8 +104,8 @@ def search_wiki(page_start, page_end):
     page_start = page_start.replace(' ', '_')
     wiki_url = "https://en.wikipedia.org/wiki/"
     check_one = get_titles(wiki_url, page_start)
-    check_two = get_titles(wiki_url, page_end.replace(' ', '_'))
-    if len(check_one) == 0 or len(check_two) == 0:
+    page_end_links = get_titles(wiki_url, page_end.replace(' ', '_'))
+    if len(check_one) == 0 or len(page_end_links) == 0:
         return([
             "error",
             ERRORS[0]
@@ -103,53 +114,47 @@ def search_wiki(page_start, page_end):
     titles = clean_links(titles)
     ret_url = None
     if page_end in titles:
-        page_end = page_end.replace(' ', '_')
-        return([
-            '{}{}'.format(wiki_url, page_start),
-            '{}{}'.format(wiki_url, page_end),
-        ])
-    else:
-        all_titles = all_titles.union(titles)
-        queries[page_start] = dict.fromkeys(titles)
+        return make_return_object(page_start, page_end.replace(' ', '_'))
+    all_titles = all_titles.union(titles)
+    queries[page_start] = dict.fromkeys(titles)
     for title in queries[page_start]:
         temp_titles = get_titles(wiki_url, title)
         temp_titles = clean_links(temp_titles)
         if page_end in temp_titles:
-            step2 = title.replace(' ', '_')
-            page_end = page_end.replace(' ', '_')
-            ret_url = 'found'
-            break
+            return make_return_object(
+                page_start,
+                title.replace(' ', '_'),
+                page_end.replace(' ', '_'))
+        else:
+            for page_end_link in page_end_links:
+                if page_end_link in temp_titles:
+                    return make_return_object(
+                        page_start,
+                        title.replace(' ', '_'),
+                        page_end_link.replace(' ', '_'),
+                        page_end.replace(' ', '_'))
         all_titles = all_titles.union(temp_titles)
         queries[page_start][title] = dict.fromkeys(temp_titles)
-    if ret_url == 'found':
-        return([
-            '{}{}'.format(wiki_url, page_start),
-            '{}{}'.format(wiki_url, step2),
-            '{}{}'.format(wiki_url, page_end)
-        ])
-    else:
-        for title in queries[page_start]:
-            for second_title in queries[page_start][title]:
-                temp_titles = get_titles(wiki_url, second_title)
-                temp_titles = clean_links(temp_titles)
-                if page_end in temp_titles:
-                    step2 = title.replace(' ', '_')
-                    step3 = second_title.replace(' ', '_')
-                    page_end = page_end.replace(' ', '_')
-                    ret_url = 'found'
-                    break
-    if ret_url == 'found':
-        return([
-            '{}{}'.format(wiki_url, page_start),
-            '{}{}'.format(wiki_url, step2),
-            '{}{}'.format(wiki_url, step3),
-            '{}{}'.format(wiki_url, page_end)
-        ])
-    else:
-        return([
-            "error",
-            ERRORS[0]
-        ])
+    for title in queries[page_start]:
+        for second_title in queries[page_start][title]:
+            temp_titles = get_titles(wiki_url, second_title)
+            temp_titles = clean_links(temp_titles)
+            if page_end in temp_titles:
+                return make_return_object(
+                    page_start,
+                    title.replace(' ', '_'),
+                    second_title.replace(' ', '_'),
+                    page_end.replace(' ', '_'))
+            else:
+                for page_end_link in page_end_links:
+                    if page_end_link in temp_titles:
+                        return make_return_object(
+                            page_start,
+                            title.replace(' ', '_'),
+                            second_title.replace(' ', '_'),
+                            page_end_link.replace(' ', '_'),
+                            page_end.replace(' ', '_'))
+    return(["error", ERRORS[0]])
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -164,7 +169,7 @@ def index():
     if request.method == 'POST':
         page_one = request.form['PAGE_ONE']
         page_two = request.form['PAGE_TWO']
-        signal.alarm(20)
+        signal.alarm(30)
         try:
             results_obj = search_wiki(page_one, page_two)
         except Exception as e:
