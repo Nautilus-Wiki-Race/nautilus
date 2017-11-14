@@ -102,6 +102,10 @@ footer {
     justify-content: center;
     align-items: center;
 }
+input[type="text"] {
+    padding: 5px 20px;
+    font-size: 18px;
+}
 
 .button {
     margin: 20px;
