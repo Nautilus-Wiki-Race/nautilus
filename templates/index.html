@@ -3,7 +3,13 @@
 <main>
   <h1>Wikipedia Degrees of Separation</h1>
   <h3>From POINT A to POINT B</h3>
-  <p>Find the shortest path between two Wikipedia pages by submitting two keywords. We'll calculate the shortest path via links followed from the Start keyword's Wikipedia page to the End keyword's Wikipedia page.</p>
+  <p>Find the shortest path between two Wikipedia pages by submitting two keywords. We'll calculate the shortest path via wikipedia links followed from the Start keyword's Wikipedia page to the End keyword's Wikipedia page.</p>
+  <p><strong>Example of 3 degrees of separation</strong><br>
+      <a href="https://en.wikipedia.org/wiki/Quokka" target="_blank">Quokka</a> -&gt; 
+      <a href="https://en.wikipedia.org/wiki/The_Daily_Telegraph" target="_blank">The Daily Telegraph</a> -&gt; 
+      <a href="https://en.wikipedia.org/wiki/Bill_Clinton" target="_blank">Bill Clinton</a> -&gt; 
+      <a href="https://en.wikipedia.org/wiki/George_Washington" target="_blank">George Washington</a>
+      </p>
   <form action="/" method="POST">
     <div class="form center">
       <div>
@@ -23,8 +29,8 @@
 			  class="button"
 			  type="submit"
 			  value="Search Wiki Links"></div>
-    <h2>Please allow 30 seconds for deep searches:</h2>
-    <p class="timer">00:00:30</p>
   </form>
+  <h3>Please allow 30 seconds for deep searches:</h3>
+  <p class="timer">00:00:30</p>
 </main>
 {% endblock %}

@@ -189,7 +189,7 @@ def index():
     if request.method == 'POST':
         page_one = request.form['PAGE_ONE']
         page_two = request.form['PAGE_TWO']
-        signal.alarm(30)
+        signal.alarm(45)
         try:
             reset()
             results_obj = search_wiki(page_one, page_two)
