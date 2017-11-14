@@ -221,7 +221,6 @@ def index():
             reset()
             results_obj = search_wiki(page_one, page_two)
         except Exception as e:
-            print(e)
             results_obj = ["error", ERRORS[1]]
         signal.alarm(0)
         reset()
