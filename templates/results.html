@@ -3,8 +3,7 @@
 <main>
   {% if results_obj[0] == "error" %}
     <h1>ERROR</h1>
-    <li><strong>We could not find your Wikipedia Page</strong></li>
-    <li><strong>Please ensure that you provide a proper Wikipedia Pages</strong></li>
+    <li><strong>Status:</strong> {{ results_obj[1] }}</li>
   {% else %}
     <h1>Results</h1>
     <ol class="results">
@@ -12,7 +11,7 @@
       {% for obj in results_obj %}
       <li>{{ obj }}</li>
       {% endfor %}
-      <p><strong>Degrees of separation: {{ results_obj|length }}</strong></p>
+      <p><strong>Degrees of separation: {{ results_obj|length - 1 }}</strong></p>
     </ol>
   {% endif %}
   <h3><a href="{{ url_for('index') }}">Try another search!</a></h3>

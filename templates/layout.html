@@ -9,6 +9,14 @@
     <!-- FAVICON -->
     <link rel="shortcut icon" href="static/images/icon.png">
 
+    <!-- IMPORT JQUERY -->
+
+    <SCRIPT src="{{ url_for('static', filename='scripts/jquery-3.2.1.min.js') }}"></SCRIPT>
+
+    <!-- JAVASCRIPT FILES -->
+
+    <SCRIPT src="{{ url_for('static', filename='scripts/timer.js') }}?{{ cache_id }}"></SCRIPT>
+
     <!-- CSS -->
     <link rel="stylesheet" href="static/css/styles.css">
 

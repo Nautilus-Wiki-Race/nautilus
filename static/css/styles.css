@@ -68,6 +68,10 @@ footer {
     overflow: hidden;
 }
 
+.timer {
+    font-size: 40px;
+}
+
 .logo {
     flex-grow: 1;
 }
@@ -101,6 +105,10 @@ footer {
 
 .button {
     margin: 20px;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 5px 20px;
+    background-color: #F21E24;
 }
 
 #mc_embed_signup {

@@ -1,10 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 wiki race flask app
 """
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json
 import requests
+import signal
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -12,6 +13,27 @@ host = '0.0.0.0'
 port = 5000
 all_titles = set()
 queries = dict()
+registered_signal_status = False
+ERRORS = [
+    "NOT FOUND: Please ensure that you provide a proper Wikipedia Pages",
+    "TIMEOUT: Please let us know how to improve our algorithm"
+]
+
+
+def signal_handler(signum, frame):
+    """
+    signal handler for timeout function
+    """
+    raise Exception("function timeout, not enough resources")
+
+
+def register_signal_handler():
+    """
+    this registers the signal handler function and timeout
+    """
+    global registered_signal_status
+    registered_signal_status = True
+    signal.signal(signal.SIGALRM, signal_handler)
 
 
 def reset():
@@ -73,17 +95,15 @@ def search_wiki(page_start, page_end):
     check_one = get_titles(wiki_url, page_start)
     check_two = get_titles(wiki_url, page_end.replace(' ', '_'))
     if len(check_one) == 0 or len(check_two) == 0:
-        reset()
         return([
             "error",
-            "link not found"
+            ERRORS[0]
         ])
     titles = check_one
     titles = clean_links(titles)
     ret_url = None
     if page_end in titles:
         page_end = page_end.replace(' ', '_')
-        reset()
         return([
             '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, page_end),
@@ -102,7 +122,6 @@ def search_wiki(page_start, page_end):
         all_titles = all_titles.union(temp_titles)
         queries[page_start][title] = dict.fromkeys(temp_titles)
     if ret_url == 'found':
-        reset()
         return([
             '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, step2),
@@ -113,21 +132,13 @@ def search_wiki(page_start, page_end):
             for second_title in queries[page_start][title]:
                 temp_titles = get_titles(wiki_url, second_title)
                 temp_titles = clean_links(temp_titles)
-                # print("{} -> {} -> {}"
-                # .format(page_start, title, second_title))
                 if page_end in temp_titles:
                     step2 = title.replace(' ', '_')
                     step3 = second_title.replace(' ', '_')
                     page_end = page_end.replace(' ', '_')
                     ret_url = 'found'
                     break
-                """
-                all_titles = all_titles.union(temp_titles)
-                queries[page_start][title][second_title] = (
-                    dict.fromkeys(temp_titles))
-                """
     if ret_url == 'found':
-        reset()
         return([
             '{}{}'.format(wiki_url, page_start),
             '{}{}'.format(wiki_url, step2),
@@ -135,10 +146,9 @@ def search_wiki(page_start, page_end):
             '{}{}'.format(wiki_url, page_end)
         ])
     else:
-        reset()
         return([
             "error",
-            "link not found"
+            ERRORS[0]
         ])
 
 
@@ -148,13 +158,20 @@ def index():
     renders template for main index
     """
     if request.method == 'GET':
+        if not registered_signal_status:
+            register_signal_handler()
         return render_template('index.html')
     if request.method == 'POST':
         page_one = request.form['PAGE_ONE']
         page_two = request.form['PAGE_TWO']
-        results_obj = search_wiki(page_one, page_two)
+        signal.alarm(20)
+        try:
+            results_obj = search_wiki(page_one, page_two)
+        except Exception as e:
+            results_obj = ["error", ERRORS[1]]
+        signal.alarm(0)
+        reset()
         return render_template('results.html', results_obj=results_obj)
-    # return redirect(url_for('results', results_obj=json.dumps(results_obj)))
 
 
 @app.route('/results/<results_obj>', methods=['GET', 'POST'])
@@ -165,11 +182,9 @@ def results(results_obj):
     return render_template('results.html', results_obj=json.loads(results_obj))
 
 
-"""
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-"""
 
 
 if __name__ == '__main__':
