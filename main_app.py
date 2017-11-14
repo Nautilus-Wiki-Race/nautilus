@@ -13,6 +13,8 @@ host = '0.0.0.0'
 port = 5000
 all_titles = set()
 queries = dict()
+all_titles_reversed = set()
+queries_end = dict()
 registered_signal_status = False
 ERRORS = [
     "NOT FOUND: Please ensure that you provide a proper Wikipedia Pages",
@@ -103,12 +105,16 @@ def get_titles_linked_to_page(page):
     return (titles)
 
 
-def clean_links(titles):
+def remove_duplicate_links(titles, from_start):
     """
     cleans (i.e. removes) titles that should not be in new titles list
     """
-    global all_titles
-    return (titles.difference(all_titles))
+    if from_start is True:
+        global all_titles
+        return (titles.difference(all_titles))
+    else:
+        global all_titles_reversed
+        return (titles.difference(all_titles_reversed))
 
 
 def make_return_object(*args):
@@ -128,52 +134,73 @@ def search_wiki(page_start, page_end):
     """
     global all_titles
     global queries
-    all_titles.add(page_start)
-    queries[page_start] = {}
+    global all_titles_reversed
+    global queries_end
+
+    # Build string replacements for links
     page_start = page_start.replace(' ', '_')
     check_one = get_titles_on_page(page_start)
-    check_two = get_titles_on_page(page_end.replace(' ', '_'))
+    page_end_replaced = page_end.replace(' ', '_')
+    check_two = get_titles_on_page(page_end_replaced)
+
+    # error check to see if links are valide
     if len(check_one) == 0 or len(check_two) == 0:
         return(["error", ERRORS[0]])
-    titles = check_one
-    titles = clean_links(titles)
-    page_end_links = get_titles_linked_to_page(page_end.replace(' ', '_'))
-    if page_end in titles:
-        return make_return_object(page_start, page_end.replace(' ', '_'))
-    all_titles = all_titles.union(titles)
-    queries[page_start] = dict.fromkeys(titles)
+    all_titles.add(page_start)
+    page_start_titles = check_one
+
+    # check 1 degree of separation
+    if page_end in page_start_titles:
+        return make_return_object(page_start, page_end_replaced)
+
+    # Begin build queries start search object (dict of dict)
+    page_start_titles = remove_duplicate_links(page_start_titles, True)
+    all_titles = all_titles.union(page_start_titles)
+    queries[page_start] = dict.fromkeys(page_start_titles)
+
+    # Begin build queries end search object (dict of dict)
+    # all_titles_reversed.add(page_end)
+    # all_titles_reversed = all_titles_reversed.union(page_end_links)
+    page_end_links = get_titles_linked_to_page(page_end_replaced)
+    queries_end[page_end_replaced] = dict.fromkeys(page_end_links)
+
+    # Begin Search
     for title in queries[page_start]:
         temp_titles = get_titles_on_page(title)
-        temp_titles = clean_links(temp_titles)
+        temp_titles = remove_duplicate_links(temp_titles, True)
         if page_end in temp_titles:
             return make_return_object(
-                page_start, title.replace(' ', '_'), page_end.replace(' ', '_'))
+                page_start, title.replace(' ', '_'), page_end_replaced)
         else:
-            for page_end_link in page_end_links:
+            for page_end_link in queries_end[page_end_replaced]:
                 if page_end_link in temp_titles:
                     return make_return_object(
                         page_start,
                         title.replace(' ', '_'),
                         page_end_link.replace(' ', '_'),
-                        page_end.replace(' ', '_'))
+                        page_end_replaced)
+                # temp_end_titles = get_titles_linked_to_page(page_end_link)
+                # temp_end_titles = remove_duplicate_links(temp_end_titles, False)
+                # all_titles_reversed = all_titles_reversed.union(temp_end_titles)
+                # queries_end[page_end_replaced][page_end_link] = dict.fromkeys(temp_end_titles)
         all_titles = all_titles.union(temp_titles)
         queries[page_start][title] = dict.fromkeys(temp_titles)
     for title in queries[page_start]:
         for second_title in queries[page_start][title]:
             temp_titles = get_titles_on_page(second_title)
-            temp_titles = clean_links(temp_titles)
+            temp_titles = remove_duplicate_links(temp_titles, True)
             if page_end in temp_titles:
                 return make_return_object(
                     page_start, title.replace(' ', '_'),
-                    second_title.replace(' ', '_'), page_end.replace(' ', '_'))
+                    second_title.replace(' ', '_'), page_end_replaced)
             else:
-                for page_end_link in page_end_links:
+                for page_end_link in queries_end[page_end_replaced]:
                     if page_end_link in temp_titles:
                         return make_return_object(
                             page_start, title.replace(' ', '_'),
                             second_title.replace(' ', '_'),
                             page_end_link.replace(' ', '_'),
-                            page_end.replace(' ', '_'))
+                            page_end_replaced)
     return(["error", ERRORS[0]])
 
 
@@ -194,6 +221,7 @@ def index():
             reset()
             results_obj = search_wiki(page_one, page_two)
         except Exception as e:
+            print(e)
             results_obj = ["error", ERRORS[1]]
         signal.alarm(0)
         reset()
