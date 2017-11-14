@@ -46,16 +46,17 @@ def reset():
     queries = dict()
 
 
-def get_titles(page_start):
+def get_titles_on_page(page):
     """
-    makes get request to wiki API
+    makes get request to wiki API from given page
+    for titles on the input page
     """
     payload = {
         'action': 'query',
         'prop': 'links',
         'pllimit': '500',
         'format': 'json',
-        'titles': page_start
+        'titles': page
     }
     headers = {
         'User-agent': 'holberton 0.1'
@@ -66,6 +67,34 @@ def get_titles(page_start):
     for v in pages.values():
         link_val = v
     links = link_val.get("links")
+    if links is None:
+        return(set())
+    titles = set()
+    for link in links:
+        titles.add(link.get('title'))
+    return (titles)
+
+def get_titles_linked_to_page(page):
+    """
+    makes get request to wiki API from given page
+    for titles linking to the input page
+    """
+    payload = {
+        'action': 'query',
+        'prop': 'linkshere',
+        'lhlimit': '500',
+        'format': 'json',
+        'titles': page
+    }
+    headers = {
+        'User-agent': 'holberton 0.1'
+    }
+    url = "https://en.wikipedia.org/w/api.php"
+    r = requests.get(url, headers=headers, params=payload)
+    pages = r.json().get("query").get("pages")
+    for v in pages.values():
+        link_val = v
+    links = link_val.get("linkshere")
     if links is None:
         return(set())
     titles = set()
@@ -102,25 +131,23 @@ def search_wiki(page_start, page_end):
     all_titles.add(page_start)
     queries[page_start] = {}
     page_start = page_start.replace(' ', '_')
-    check_one = get_titles(page_start)
-    page_end_links = get_titles(page_end.replace(' ', '_'))
-    if len(check_one) == 0 or len(page_end_links) == 0:
+    check_one = get_titles_on_page(page_start)
+    check_two = get_titles_on_page(page_end.replace(' ', '_'))
+    if len(check_one) == 0 or len(check_two) == 0:
         return(["error", ERRORS[0]])
     titles = check_one
     titles = clean_links(titles)
-    ret_url = None
+    page_end_links = get_titles_linked_to_page(page_end.replace(' ', '_'))
     if page_end in titles:
         return make_return_object(page_start, page_end.replace(' ', '_'))
     all_titles = all_titles.union(titles)
     queries[page_start] = dict.fromkeys(titles)
     for title in queries[page_start]:
-        temp_titles = get_titles(title)
+        temp_titles = get_titles_on_page(title)
         temp_titles = clean_links(temp_titles)
         if page_end in temp_titles:
             return make_return_object(
-                page_start,
-                title.replace(' ', '_'),
-                page_end.replace(' ', '_'))
+                page_start, title.replace(' ', '_'), page_end.replace(' ', '_'))
         else:
             for page_end_link in page_end_links:
                 if page_end_link in temp_titles:
@@ -133,20 +160,17 @@ def search_wiki(page_start, page_end):
         queries[page_start][title] = dict.fromkeys(temp_titles)
     for title in queries[page_start]:
         for second_title in queries[page_start][title]:
-            temp_titles = get_titles(second_title)
+            temp_titles = get_titles_on_page(second_title)
             temp_titles = clean_links(temp_titles)
             if page_end in temp_titles:
                 return make_return_object(
-                    page_start,
-                    title.replace(' ', '_'),
-                    second_title.replace(' ', '_'),
-                    page_end.replace(' ', '_'))
+                    page_start, title.replace(' ', '_'),
+                    second_title.replace(' ', '_'), page_end.replace(' ', '_'))
             else:
                 for page_end_link in page_end_links:
                     if page_end_link in temp_titles:
                         return make_return_object(
-                            page_start,
-                            title.replace(' ', '_'),
+                            page_start, title.replace(' ', '_'),
                             second_title.replace(' ', '_'),
                             page_end_link.replace(' ', '_'),
                             page_end.replace(' ', '_'))
@@ -167,6 +191,7 @@ def index():
         page_two = request.form['PAGE_TWO']
         signal.alarm(30)
         try:
+            reset()
             results_obj = search_wiki(page_one, page_two)
         except Exception as e:
             results_obj = ["error", ERRORS[1]]
