@@ -20,9 +20,13 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-a, a:visited, a:hover, a:active {
+a, a:visited, a:active {
     color: #F21E24;
     text-decoration: none;
+}
+
+a:hover {
+    color: #b71217;
 }
 
 header {

@@ -76,7 +76,7 @@ def get_titles(wiki_url, page_start):
 
 def clean_links(titles):
     """
-    cleans titles that should not be in new titles list
+    cleans (i.e. removes) titles that should not be in new titles list
     """
     global all_titles
     return (titles.difference(all_titles))
@@ -95,7 +95,7 @@ def make_return_object(*args):
 
 def search_wiki(page_start, page_end):
     """
-    basic search for pages
+    the wiki search algorithm
     """
     global all_titles
     global queries
@@ -106,10 +106,7 @@ def search_wiki(page_start, page_end):
     check_one = get_titles(wiki_url, page_start)
     page_end_links = get_titles(wiki_url, page_end.replace(' ', '_'))
     if len(check_one) == 0 or len(page_end_links) == 0:
-        return([
-            "error",
-            ERRORS[0]
-        ])
+        return(["error", ERRORS[0]])
     titles = check_one
     titles = clean_links(titles)
     ret_url = None

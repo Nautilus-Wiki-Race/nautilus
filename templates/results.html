@@ -9,7 +9,7 @@
     <ol class="results">
       <strong>Start:</strong>
       {% for obj in results_obj %}
-      <li>{{ obj }}</li>
+      <li><a href="{{ obj }}" target="_blank">{{ obj }}</a></li>
       {% endfor %}
       <p><strong>Degrees of separation: {{ results_obj|length - 1 }}</strong></p>
     </ol>

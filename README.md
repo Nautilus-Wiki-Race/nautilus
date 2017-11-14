@@ -1,11 +1,11 @@
-# nautilus
+# nautilus group wikirace
 
-wikirace: attempts to find shortest path of links between 2 wiki pages
+attempts to find shortest path of degrees of separation between
+links between 2 wiki pages
 
 # Links
 
-* Application: http://nautilus.holberton.us
-  * (out of date): currently hosted here: https://www.cecinestpasun.site/nautilus/
+* Application: https://www.cecinestpasun.site/nautilus/
 * Twitter: https://twitter.com/nautilus_wiki
 * Facebook: https://www.facebook.com/Nautilus-Wikirace-297139974102037/
 * Project Development: https://trello.com/holbertonnautilus
