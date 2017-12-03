@@ -3,13 +3,27 @@
 attempts to find shortest path of degrees of separation between
 links between 2 wiki pages
 
+## Environment
+
+* __OS:__ Linux Ubuntu 16.04.3 LTS (xenial)
+* __firewall:__ ufw 0.35
+* __SSL Cert:__ Let's Encrypt [certbot 0.19.0](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04)
+* __languages:__ Python 3.6.3, Javascript, HTML, CSS
+* __web server:__ nginx/1.4.6
+* __application server:__ Flask==0.12.2, Jinja2==2.9.6
+* __web server gateway:__ gunicorn (version 19.7.1)
+* __style:__ (TODO)
+  * __python:__ PEP 8 (v. 1.7.0)
+  * __web static:__ [W3C Validator](https://validator.w3.org/)
+  * __JavaScript:__ semistandard 11.0.0
+
 # Links
 
 * Application: https://www.cecinestpasun.site/nautilus/
 * Twitter: https://twitter.com/nautilus_wiki
 * Facebook: https://www.facebook.com/Nautilus-Wikirace-297139974102037/
 * Project Development: https://trello.com/holbertonnautilus
-* [Press Release](https://github.com/Nautilus-Wiki-Race/nautilus/blob/master/static/Nautilus_PR.pdf_
+* [Press Release](https://github.com/Nautilus-Wiki-Race/nautilus/blob/master/static/Nautilus_PR.pdf_)
 
 # Authors
 
